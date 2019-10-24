@@ -1,0 +1,60 @@
+package com.dtechnology.moviebox.activity;
+
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.media.Rating;
+import android.net.Uri;
+import android.nfc.Tag;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.dtechnology.moviebox.R;
+import com.dtechnology.moviebox.adapter.AdapterMovie;
+import com.dtechnology.moviebox.connection.ApiService;
+import com.dtechnology.moviebox.connection.RetroConfig;
+import com.dtechnology.moviebox.database.MovieContract;
+import com.dtechnology.moviebox.database.TvContract;
+import com.dtechnology.moviebox.model.DataMovie;
+import com.dtechnology.moviebox.model.ModelListMovie;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class DetailActivity extends AppCompatActivity {
+
+    ArrayList<DataMovie> dataMovies = new ArrayList<DataMovie>();
+    ArrayList<DataMovie> dataSimilar = new ArrayList<>();
+    int position = 1;
+    boolean isFavorite = false;
+
+    SharedPreferences preferences;
+    FloatingActionButton fab;
+    RecyclerView rvmovie;
+    ProgressBar progress_popular;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+        rvmovie = (RecyclerView)findViewById(R.id.rvmovie);
+        progres
